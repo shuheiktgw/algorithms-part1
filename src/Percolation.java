@@ -1,16 +1,19 @@
 public class Percolation {
+    private int size;
     private int[] id;
     private int[] status;
 
     // create n-by-n grid, with all sites blocked
     public Percolation(int n) {
         if(n < 1) {
-            throw new IllegalArgumentException("You have to specify a number bigger than 1.");
+            throwIllegalNumberException();
         }
 
-        int size = n * n;
-        id = new int[size];
-        status = new int[size];
+        size = n;
+
+        int area = n * n;
+        id = new int[area];
+        status = new int[area];
 
         for(int i = 0; i < (n * n); i++) {
             id[i] = i;
@@ -26,11 +29,40 @@ public class Percolation {
         return status;
     }
 
-    public    void open(int row, int col) {}    // open site (row, col) if it is not open already
-    public boolean isOpen(int row, int col) { return true; }  // is site (row, col) open?
+    private void setStatus(int idx) {
+        status[idx] = 1;
+    }
+
+    // open site (row, col) if it is not open already
+    public void open(int row, int col) {
+        checkRowAndCol(row, col);
+        setStatus(coord2index(row, col));
+    }
+
+    // is site (row, col) open?
+    public boolean isOpen(int row, int col) {
+        checkRowAndCol(row, col);
+
+        int idx = coord2index(row, col);
+        return getStatus()[idx] == 1;
+    }
     public boolean isFull(int row, int col) { return true; }  // is site (row, col) full?
     public     int numberOfOpenSites() { return 0; }       // number of open sites
     public boolean percolates() { return true; }              // does the system percolate?
 
-    public static void main(String[] args){}   // test client (optional)
+    private int coord2index(int row, int col) {
+        checkRowAndCol(row, col);
+        return (row - 1) * size + (col - 1);
+    }
+
+    private void checkRowAndCol(int row, int col) {
+        if(row < 1 || col < 1) {
+            throwIllegalNumberException();
+        }
+    }
+
+    private void throwIllegalNumberException() {
+        throw new IllegalArgumentException("You have to specify a number bigger than 1.");
+    }
+
 }
