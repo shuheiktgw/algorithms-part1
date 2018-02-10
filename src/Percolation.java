@@ -11,14 +11,17 @@ public class Percolation {
 
         size = n;
 
-        int area = n * n;
+        // Need extra two spaces for the top node and the bottom node
+        int area = n * n + 2;
         id = new int[area];
         status = new int[area];
 
-        for(int i = 0; i < (n * n); i++) {
+        for(int i = 0; i < area; i++) {
             id[i] = i;
             status[i] = 0;
         }
+
+        // TODO: Connect the top/bottom nodes with the top/bottom row
     }
 
     public int[] getId() {

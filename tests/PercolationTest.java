@@ -16,7 +16,7 @@ class PercolationTest {
         int[] id = percolation.getId();
         int[] status = percolation.getStatus();
 
-        for(int i = 0; i < 9; i++) {
+        for(int i = 0; i < 11; i++) {
             assertEquals(i, id[i]);
             assertEquals(0, status[i]);
         }
