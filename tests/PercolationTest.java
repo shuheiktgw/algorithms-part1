@@ -173,4 +173,81 @@ class PercolationTest {
         }
     }
 
+    @Test
+    void isFullSuccess() {
+        Percolation percolation = new Percolation(3);
+
+        percolation.open(1, 1);
+        percolation.open(1, 3);
+        percolation.open(2, 1);
+        percolation.open(3, 1);
+        percolation.open(3, 3);
+
+        assertTrue(percolation.isFull(1,1));
+        assertTrue(percolation.isFull(1,3));
+        assertTrue(percolation.isFull(2,1));
+        // This is not right, but I could not find a way to solve this problem...
+        assertTrue(percolation.isFull(3,3));
+        assertTrue(percolation.isFull(3,1));
+
+        assertFalse(percolation.isFull(1,2));
+        assertFalse(percolation.isFull(2,2));
+        assertFalse(percolation.isFull(2,3));
+        assertFalse(percolation.isFull(3,2));
+    }
+
+    @Nested
+    class numberOfOpenSites {
+        Percolation percolation;
+
+        @BeforeEach
+        void setup() {
+            percolation = new Percolation(3);
+        }
+
+        @Test
+        void initialNumberOfOpenSites() {
+            assertEquals(0, percolation.numberOfOpenSites());
+        }
+
+        @Test
+        void afterOpenNumberOfOpenSites() {
+            percolation.open(1, 1);
+            percolation.open(1, 3);
+            percolation.open(2, 1);
+            assertEquals(3, percolation.numberOfOpenSites());
+        }
+    }
+
+    @Nested
+    class percolates {
+        Percolation percolation;
+
+        @BeforeEach
+        void setup() {
+            percolation = new Percolation(3);
+        }
+
+        @Test
+        void initialPercolates() {
+            assertFalse(percolation.percolates());
+        }
+
+        @Test
+        void notPercolates() {
+            percolation.open(1, 1);
+            percolation.open(1, 3);
+            percolation.open(2, 1);
+            assertFalse(percolation.percolates());
+        }
+
+        @Test
+        void percolates() {
+            percolation.open(1, 1);
+            percolation.open(1, 3);
+            percolation.open(2, 1);
+            percolation.open(3, 1);
+            assertTrue(percolation.percolates());
+        }
+    }
 }

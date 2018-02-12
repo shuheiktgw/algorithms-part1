@@ -71,9 +71,29 @@ public class Percolation {
         checkIndex(idx);
         return getStatus()[idx] == 1;
     }
-    public boolean isFull(int row, int col) { return true; }  // is site (row, col) full?
-    public     int numberOfOpenSites() { return 0; }       // number of open sites
-    public boolean percolates() { return true; }              // does the system percolate?
+
+    // is site (row, col) full?
+    public boolean isFull(int row, int col) {
+        int idx = coord2index(row, col);
+        return 0 == root(idx) && isOpen(row, col);
+    }
+
+    // number of open sites
+    public int numberOfOpenSites() {
+        int count = 0;
+        for (int s : status) {
+            if (s == 1) {
+                count += 1;
+            }
+        }
+
+        return count;
+    }
+
+    // does the system percolate?
+    public boolean percolates() {
+        return id[0] == id[initialSize * initialSize + 1];
+    }
 
     private int root(int i) {
         while (i != id[i]) {
@@ -127,7 +147,7 @@ public class Percolation {
         }
 
         // Not the right most
-        if (row != initialSize) {
+        if (col != initialSize) {
             adjacent.add(setCoordinate(row, col + 1));
         }
 
