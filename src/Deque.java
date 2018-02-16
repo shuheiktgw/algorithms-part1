@@ -60,6 +60,8 @@ public class Deque<Item> implements Iterable<Item> {
 
     // add the item to the front
     public void addFirst(Item item) {
+        checkItem(item);
+
         Node node = new Node(first, null, item);
         setSize(size + 1);
 
@@ -129,5 +131,11 @@ public class Deque<Item> implements Iterable<Item> {
 
     private void setSize(int size) {
         this.size = size;
+    }
+
+    private void checkItem(Item item) {
+        if (item == null) {
+            throw new IllegalArgumentException("Item cannot be null");
+        }
     }
 }

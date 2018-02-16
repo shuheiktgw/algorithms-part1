@@ -1,8 +1,15 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class DequeTest {
+    private Deque<String> deque;
+
+    @BeforeEach
+    void setup(){
+        deque = new Deque<>();
+    }
 
     @Test
     void isEmpty() {
@@ -10,19 +17,29 @@ class DequeTest {
 
     @Test
     void size() {
-        Deque<String> deque = new Deque<>();
-
         deque.addFirst("first");
         assertEquals(1, deque.size());
     }
 
     @Test
     void testAddFirst() {
-        Deque<String> deque = new Deque<>();
-
         deque.addFirst("first");
         assertEquals(1, deque.size());
         assertFalse(deque.isEmpty());
+
+        deque.addFirst("second");
+        assertEquals(2, deque.size());
+        assertFalse(deque.isEmpty());
+
+        deque.addFirst("third");
+        assertEquals(3, deque.size());
+        assertFalse(deque.isEmpty());
+    }
+
+    @Test
+    void testAddFirstFailsWithNullItem() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> deque.addFirst(null));
+        assertEquals("Item cannot be null", exception.getMessage());
     }
 
     @Test
