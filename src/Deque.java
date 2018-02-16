@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class Deque<Item> implements Iterable<Item> {
 
@@ -50,7 +51,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     // is the deque empty?
     public boolean isEmpty() {
-        return getFirst() == null;
+        return size() == 0;
     }
 
     // return the number of items on the deque
@@ -66,7 +67,7 @@ public class Deque<Item> implements Iterable<Item> {
         setSize(size + 1);
 
         // Means first addition
-        if (getFirst() == null && getLast() == null) {
+        if (size() == 1) {
             setLast(node);
         } else {
             getFirst().setPrev(node);
@@ -77,17 +78,53 @@ public class Deque<Item> implements Iterable<Item> {
 
     // add the item to the end
     public void addLast(Item item) {
+        checkItem(item);
 
+        Node node = new Node(null, last, item);
+        setSize(size + 1);
+
+        // Means first addition
+        if (size() == 1) {
+            setFirst(node);
+        } else {
+            getLast().setNext(node);
+        }
+
+        setLast(node);
     }
 
     // remove and return the item from the front
     public Item removeFirst() {
-        return null;
+        checkSize();
+
+        Item item = first.getItem();
+        setSize(size - 1);
+
+        if (size == 0) {
+            setFirst(null);
+            setLast(null);
+        } else {
+            setFirst(first.getNext());
+        }
+
+        return item;
     }
 
     // remove and return the item from the end
     public Item removeLast() {
-        return null;
+        checkSize();
+
+        Item item = last.getItem();
+        setSize(size - 1);
+
+        if (size == 0) {
+            setFirst(null);
+            setLast(null);
+        } else {
+            setLast(last.getPrev());
+        }
+
+        return item;
     }
 
     // return an iterator over items in order from front to end
@@ -136,6 +173,12 @@ public class Deque<Item> implements Iterable<Item> {
     private void checkItem(Item item) {
         if (item == null) {
             throw new IllegalArgumentException("Item cannot be null");
+        }
+    }
+
+    private void checkSize() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Deque size is 0");
         }
     }
 }
