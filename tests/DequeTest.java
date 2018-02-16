@@ -172,5 +172,13 @@ class DequeTest {
 
         Exception firstException = assertThrows(NoSuchElementException.class, () -> deque.removeFirst());
         assertEquals("Deque size is 0", firstException.getMessage());
+
+        deque.addFirst("first");
+        assertEquals(1, deque.size());
+        assertFalse(deque.isEmpty());
+
+        deque.addLast("second");
+        assertEquals(2, deque.size());
+        assertFalse(deque.isEmpty());
     }
 }
