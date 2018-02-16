@@ -62,12 +62,15 @@ public class Deque<Item> implements Iterable<Item> {
     public void addFirst(Item item) {
         Node node = new Node(first, null, item);
         setSize(size + 1);
-        setFirst(node);
 
         // Means first addition
-        if (getLast() == null) {
+        if (getFirst() == null && getLast() == null) {
             setLast(node);
+        } else {
+            getFirst().setPrev(node);
         }
+
+        setFirst(node);
     }
 
     // add the item to the end
