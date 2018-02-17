@@ -12,7 +12,7 @@ public class Deque<Item> implements Iterable<Item> {
         private Node prev;
         private Item item;
 
-        public Node(Node nextNode, Node prevNode , Item newItem) {
+        public Node(Node nextNode, Node prevNode, Item newItem) {
             this.next = nextNode;
             this.prev = prevNode;
             this.item = newItem;

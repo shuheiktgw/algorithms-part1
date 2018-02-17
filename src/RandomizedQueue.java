@@ -6,14 +6,14 @@ import java.util.NoSuchElementException;
 public class RandomizedQueue<Item> implements Iterable<Item> {
 
     private Node first = null;
-    private int N = 0;
+    private int size = 0;
 
     private class Node {
         private Node next;
         private Node prev;
         private Item item;
 
-        public Node(Node nextNode, Node prevNode , Item item) {
+        public Node(Node nextNode, Node prevNode, Item item) {
             this.next = nextNode;
             this.prev = prevNode;
             this.item = item;
@@ -45,12 +45,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // is the randomized queue empty?
     public boolean isEmpty() {
-        return this.N == 0;
+        return this.size == 0;
     }
 
     // return the number of items on the randomized queue
     public int size() {
-        return this.N;
+        return this.size;
     }
 
     // add the item
@@ -62,11 +62,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         Node node = new Node(first, null, item);
 
         // Means not the first addition
-        if (this.N > 0) {
+        if (this.size > 0) {
             this.first.setPrev(node);
         }
 
-        this.N++;
+        this.size++;
         this.first = node;
     }
 
@@ -76,8 +76,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
         Node middle = pickup();
 
-        if (this.N == 1) {
-            assert(middle == first);
+        if (this.size == 1) {
+            assert (middle == first);
             this.first = null;
         } else {
             Node prev = middle.getPrev();
@@ -87,7 +87,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
                 prev.setNext(next);
             } else {
                 // Means picked up the first node
-                assert(middle == first);
+                assert (middle == first);
                 this.first = next;
             }
 
@@ -96,7 +96,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             }
         }
 
-        this.N--;
+        this.size--;
         return middle.getItem();
     }
 
@@ -130,7 +130,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     private Node pickup() {
-        int index = StdRandom.uniform(this.N);
+        int index = StdRandom.uniform(this.size);
 
         Node node = this.first;
         for (int i = 0; i < index; i++) {

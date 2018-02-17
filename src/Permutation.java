@@ -6,7 +6,7 @@ public class Permutation {
     public static void main(String[] args) {
         RandomizedQueue<String> queue = new RandomizedQueue<>();
 
-        while(true) {
+        while (true) {
             try {
                 queue.enqueue(StdIn.readString());
             } catch (NoSuchElementException e) {
