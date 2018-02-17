@@ -15,10 +15,6 @@ class DequeTest {
     }
 
     @Test
-    void isEmpty() {
-    }
-
-    @Test
     void size() {
         deque.addFirst("first");
         assertEquals(1, deque.size());
