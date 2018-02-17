@@ -140,5 +140,7 @@ class RandomizedQueueTest {
         assertFalse(iterator.hasNext());
         Exception exception = assertThrows(NoSuchElementException.class, iterator::next);
         assertEquals("Deque size is 0", exception.getMessage());
+
+        assertThrows(UnsupportedOperationException.class, iterator::remove);
     }
 }

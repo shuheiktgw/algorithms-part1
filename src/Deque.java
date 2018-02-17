@@ -140,7 +140,7 @@ public class Deque<Item> implements Iterable<Item> {
         }
 
         public void remove() {
-            /* not supported */
+            throw new UnsupportedOperationException();
         }
 
         public Item next() {
