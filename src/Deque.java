@@ -144,6 +144,10 @@ public class Deque<Item> implements Iterable<Item> {
         }
 
         public Item next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException("Deque size is 0");
+            }
+
             Item item = current.getItem();
             current = current.getNext();
             return item;

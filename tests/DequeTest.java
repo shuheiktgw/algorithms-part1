@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -180,5 +181,27 @@ class DequeTest {
         deque.addLast("second");
         assertEquals(2, deque.size());
         assertFalse(deque.isEmpty());
+    }
+
+    @Test
+    void testIterator() {
+        deque.addFirst("first");
+        deque.addFirst("second");
+        deque.addFirst("third");
+
+        Iterator<String> iterator = deque.iterator();
+
+        assertTrue(iterator.hasNext());
+        assertEquals("third", iterator.next());
+
+        assertTrue(iterator.hasNext());
+        assertEquals("second", iterator.next());
+
+        assertTrue(iterator.hasNext());
+        assertEquals("first", iterator.next());
+
+        assertFalse(iterator.hasNext());
+        Exception exception = assertThrows(NoSuchElementException.class, iterator::next);
+        assertEquals("Deque size is 0", exception.getMessage());
     }
 }
