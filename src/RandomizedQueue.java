@@ -108,7 +108,29 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // return an independent iterator over items in random order
     public Iterator<Item> iterator() {
-        return null;
+        return new ListIterator();
+    }
+
+    private class ListIterator implements Iterator<Item> {
+        private Node current = first;
+
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        public void remove() {
+            /* not supported */
+        }
+
+        public Item next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException("Deque size is 0");
+            }
+
+            Item item = current.getItem();
+            current = current.getNext();
+            return item;
+        }
     }
 
     private Node pickup() {

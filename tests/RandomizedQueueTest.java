@@ -1,10 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -124,6 +121,24 @@ class RandomizedQueueTest {
     }
 
     @Test
-    void iterator() {
+    void testIterator() {
+        queue.enqueue("first");
+        queue.enqueue("second");
+        queue.enqueue("third");
+
+        Iterator<String> iterator = queue.iterator();
+
+        assertTrue(iterator.hasNext());
+        assertEquals("third", iterator.next());
+
+        assertTrue(iterator.hasNext());
+        assertEquals("second", iterator.next());
+
+        assertTrue(iterator.hasNext());
+        assertEquals("first", iterator.next());
+
+        assertFalse(iterator.hasNext());
+        Exception exception = assertThrows(NoSuchElementException.class, iterator::next);
+        assertEquals("Deque size is 0", exception.getMessage());
     }
 }
