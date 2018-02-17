@@ -112,10 +112,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     private class ListIterator implements Iterator<Item> {
-        private Node current = first;
-
         public boolean hasNext() {
-            return current != null;
+            return !isEmpty();
         }
 
         public void remove() {
@@ -127,9 +125,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
                 throw new NoSuchElementException("Deque size is 0");
             }
 
-            Item item = current.getItem();
-            current = current.getNext();
-            return item;
+            return dequeue();
         }
     }
 

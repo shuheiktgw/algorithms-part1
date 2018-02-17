@@ -122,20 +122,28 @@ class RandomizedQueueTest {
 
     @Test
     void testIterator() {
-        queue.enqueue("first");
-        queue.enqueue("second");
-        queue.enqueue("third");
+        List<String> items = new ArrayList<>(Arrays.asList("first", "second", "third", "fourth", "fifth"));
+
+        for (String item : items) {
+            queue.enqueue(item);
+        }
 
         Iterator<String> iterator = queue.iterator();
 
         assertTrue(iterator.hasNext());
-        assertEquals("third", iterator.next());
+        assertTrue(items.contains(iterator.next()));
 
         assertTrue(iterator.hasNext());
-        assertEquals("second", iterator.next());
+        assertTrue(items.contains(iterator.next()));
 
         assertTrue(iterator.hasNext());
-        assertEquals("first", iterator.next());
+        assertTrue(items.contains(iterator.next()));
+
+        assertTrue(iterator.hasNext());
+        assertTrue(items.contains(iterator.next()));
+
+        assertTrue(iterator.hasNext());
+        assertTrue(items.contains(iterator.next()));
 
         assertFalse(iterator.hasNext());
         Exception exception = assertThrows(NoSuchElementException.class, iterator::next);
