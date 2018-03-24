@@ -12,56 +12,63 @@ class PointTest {
     }
 
     @Test
-    void slopeTo() {
+    void testSlopeTo() {
         Point another = new Point(5, 5);
 
         assertEquals(1.0, point.slopeTo(another));
     }
 
     @Test
-    void slopeToWithTheSamePoint() {
+    void testSlopeToWithTheSamePoint() {
         Point another = new Point(1, 1);
 
         assertEquals(Double.NEGATIVE_INFINITY, point.slopeTo(another));
     }
 
     @Test
-    void slopeToWithTheSameX() {
+    void testSlopeToWithTheSameX() {
         Point another = new Point(1, 2);
 
         assertEquals(Double.POSITIVE_INFINITY, point.slopeTo(another));
     }
 
     @Test
-    void compareToWithBiggerYAndBiggerX() {
+    void testCompareToWithBiggerYAndBiggerX() {
         Point another = new Point(2, 2);
 
         assertTrue(point.compareTo(another) < 0);
     }
 
     @Test
-    void compareToWithBiggerYAndSmallerX() {
+    void testCompareToWithBiggerYAndSmallerX() {
         Point another = new Point(2, 0);
 
         assertTrue(point.compareTo(another) < 0);
     }
 
     @Test
-    void compareToWithSmallerYAndBiggerX() {
+    void testCompareToWithSmallerYAndBiggerX() {
         Point another = new Point(0, 2);
 
         assertTrue(point.compareTo(another) > 0);
     }
 
     @Test
-    void compareToWithSmallerYAndSmallerX() {
+    void testCompareToWithSmallerYAndSmallerX() {
         Point another = new Point(0, 0);
 
         assertTrue(point.compareTo(another) > 0);
     }
 
     @Test
-    void compareToWithTheSame() {
+    void testCompareToWithTheSame() {
+        Point another = new Point(1, 1);
+
+        assertEquals(0, point.compareTo(another));
+    }
+
+    @Test
+    void testSlopeOrder() {
         Point another = new Point(1, 1);
 
         assertEquals(0, point.compareTo(another));
